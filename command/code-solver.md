@@ -1,6 +1,6 @@
 ---
 name: code-solver
-description: 快速生成算法题解、可运行代码和 detail 测试代码，或按可替换规范审查用户代码。
+description: 快速生成算法题解与代码、审查用户代码，或创建每日一题和专项训练计划。
 ---
 
 # Code Solver
@@ -12,6 +12,10 @@ description: 快速生成算法题解、可运行代码和 detail 测试代码�
 ```text
 /code-solver solve [fast|detail] <题目或链接> [语言]
 /code-solver review [--rules <规范路径>] <代码或报错>
+/code-solver train daily [天数] [目标或要求]
+/code-solver train drill <专题> [题数] [目标或要求]
+/code-solver train submit <代码或做题描述>
+/code-solver train summary
 ```
 
 省略模式时使用 `fast`，省略语言时使用 `java`。
@@ -24,6 +28,8 @@ description: 快速生成算法题解、可运行代码和 detail 测试代码�
 - 不创建临时文件，不回读刚写入的题解或代码。
 - 不编译、不运行、不在终端验证生成代码；用户自行测试。
 - detail 测试代码优先覆盖题面中的官方样例，不生成测试报告 Markdown。
+- train：只在训练时读取训练规则；计划优先复用已有题解和公开教学链接。
+- daily/drill 领取当前题目时，已有题解和代码直接引用；缺少归档则在同一次任务内复用 solve 生成。
 
 ---
 
@@ -32,4 +38,3 @@ description: 快速生成算法题解、可运行代码和 detail 测试代码�
 ```text
 /code-solver $ARGUMENTS
 ```
-
