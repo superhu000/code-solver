@@ -1,53 +1,35 @@
 ---
 name: code-solver
-description: 算法解题与代码审查。支持 solve（fast/detail 两种模式）和 review 两个子命令，生成可直接运行的代码并归档。
+description: 快速生成算法题解、可运行代码和 detail 测试代码，或按可替换规范审查用户代码。
 ---
 
-# Solving Algorithms
+# Code Solver
 
-两个子命令：`solve` 解题、`review` 审查代码。
+将 `$ARGUMENTS` 交给 `skill/code-solver/SKILL.md` 执行。
 
-## 命令格式
+## 命令
 
-```bash
-/solving-algorithms solve [fast|detail] <题目输入> [语言]
-/solving-algorithms review <代码或报错>
+```text
+/code-solver solve [fast|detail] <题目或链接> [语言]
+/code-solver review [--rules <规范路径>] <代码或报错>
 ```
 
-### solve — 解题
+省略模式时使用 `fast`，省略语言时使用 `java`。
 
-```bash
-/solving-algorithms solve leetcode 206 java              # fast 模式（默认），最佳解法
-/solving-algorithms solve detail leetcode 1 java         # detail 模式，暴力+最优多方案对比
-/solving-algorithms solve [粘贴原题文本]                   # 默认 fast + java
-/solving-algorithms solve detail [粘贴原题文本] python     # detail 模式 + python
-```
+## 执行约束
 
-| 模式 | 说明 |
-|------|------|
-| fast | 快速生成简洁题解，再生产可执行代码 |
-| detail |生成结构化详细题解， 暴力+最优多方案对比，再生成代码，含测试代码文件，用例优先使用官方样例 |
-
-### review — 代码审查
-
-```bash
-/code-solver review [粘贴代码]
-/code-solver review 这段代码报了空指针错误 [粘贴代码]
-```
-
-分析代码问题，发现知识盲点，推荐学习资料和巩固题型。
-
-## 工作流程
-
-```
-① resolve 获取归档路径 → 第一轮：生成题解（含核心逻辑代码）→ Write 题解到 archiveDir（用户可读）
-② 第二轮：生成完整代码 → Write 代码（+测试）到 archiveDir/src/
-```
-
-模型先调用 resolve 获取归档路径（脚本自动创建目录），然后生成完整题解 Markdown（含核心逻辑代码）直接 Write 到归档目录（用户立刻可读）。第二轮直接将完整代码 Write 到 archiveDir/src/。不暂存不移动，题解和代码分两轮生成，不编译、不执行、不读模板。
+- fast：先一次生成并归档简洁题解，再生成可运行代码。
+- detail：先一次生成并归档详细题解，再一次生成代码与测试代码。
+- review：只读取一个最高优先级规范源；用户上传或指定的规范优先。
+- 不创建临时文件，不回读刚写入的题解或代码。
+- 不编译、不运行、不在终端验证生成代码；用户自行测试。
+- detail 测试代码优先覆盖题面中的官方样例，不生成测试报告 Markdown。
 
 ---
-以下为输入命令：
-```bash
+
+用户输入：
+
+```text
 /code-solver $ARGUMENTS
 ```
+
