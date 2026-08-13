@@ -7,7 +7,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[3]
 version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
 required = {
-    "README.md": ["当前正式版本：" + version, "spec/CURRENT.md"],
+    "README.md": ["当前正式版本：**" + version + "**", "spec/CURRENT.md"],
     "command/code-solver.md": ["skill/code-solver/SKILL.md", "/code-solver train daily"],
     "skill/code-solver/SKILL.md": ["train daily", "train drill", "references/training.md"],
     "spec/CURRENT.md": ["# Code Solver " + version + " 当前 Spec", "solve fast", "train daily"],
