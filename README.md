@@ -135,28 +135,7 @@ python skills/code-solver/scripts/pipeline.py list --platform leetcode --languag
 python skills/code-solver/scripts/pipeline.py list --keyword 反转
 ```
 
-## 项目结构
 
-```
-code-solver/
-├── commands/
-│   └── code-solver.md      # 命令入口
-├── skills/code-solver/
-│   ├── SKILL.md                   # Skill 定义（模型行为契约）
-│   ├── references/
-│   │   ├── SPEC.md                # 产品规格与版本记录
-│   │   ├── algorithm-templates/   # 算法模板（保留，模型不再读取）
-│   │   └── language-templates/    # 语言模板（保留，模型不再读取）
-│   └── scripts/
-│       ├── pipeline.py            # archive + list + doctor
-│       ├── parse.py               # 输入解析器
-│       ├── config.py              # 配置和路径
-│       ├── contract.py            # 命名和路径工具
-│       ├── archive.py             # 归档目录创建和查询
-│       └── render.py              # 运行命令工具
-├── install.sh / install.ps1 / install.cmd  # 安装脚本
-└── LICENSE
-```
 
 ## 设计原则
 
