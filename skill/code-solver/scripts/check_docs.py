@@ -9,15 +9,15 @@ version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
 required = {
     "README.md": ["当前正式版本：**" + version + "**", "spec/CURRENT.md"],
     "command/code-solver.md": ["skill/code-solver/SKILL.md", "/code-solver train daily"],
-    "skill/code-solver/SKILL.md": ["train daily", "train drill", "references/training.md"],
+    "skill/code-solver/SKILL.md": ["当前发布契约：" + version, "## Train 入口", "references/training.md"],
     "spec/CURRENT.md": ["# Code Solver " + version + " 当前 Spec", "solve fast", "train daily"],
     "spec/CHANGELOG.md": ["## " + version],
 }
 errors = []
 for relative, tokens in required.items():
-    text = (ROOT / relative).read_text(encoding="utf-8")
+    body = (ROOT / relative).read_text(encoding="utf-8")
     for token in tokens:
-        if token not in text:
+        if token not in body:
             errors.append(f"{relative}: missing {token!r}")
 if errors:
     print("\n".join(errors), file=sys.stderr)
