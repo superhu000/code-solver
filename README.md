@@ -21,16 +21,29 @@
 5. **官方样例优先**：detail 测试代码优先使用题面中的官方样例，再补必要边界用例。
 6. **规范可覆盖**：review 支持本次上传、指定路径、项目级和内置四级代码规范。
 
-## 使用
+### 示例
 
 ```text
+# fast 模式（默认），指定题源和题号  （-f/fast 从detail回到fast，缓存模式，使用一次即可）
+/code-solver solve <题源> <题号|题名|原题信息> [语言]
 /code-solver solve leetcode 206 java
-/code-solver solve detail leetcode 1 java
-/code-solver solve <粘贴题面> python
-/code-solver review <粘贴代码或报错>
-/code-solver review --rules <规范文件路径> <代码>
-```
+/code-solver solve nowcoder NC1 cpp
+/code-solver solve huawei <原题信息> java
 
+# detail 模式（-d 或 detail） 
+/code-solver solve -d <题源> <题号|题名|原题信息> [语言]
+/code-solver solve -d leetcode 1 python
+/code-solver solve detail acwing 100 typescript
+/code-solver solve -d huawei <原题信息> java
+
+# 直接粘贴题面，省略题源时默认 local
+/code-solver solve <粘贴题面> [语言]
+/code-solver solve <粘贴题面> c
+
+# 审查代码
+/code-solver review <粘贴代码或报错>
+/code-solver review --rules <规范路径> <代码>
+```
 ## 归档
 
 新归档采用扁平目录，减少建目录和查找开销：
