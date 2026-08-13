@@ -57,6 +57,90 @@ code-solver/
 └── spec/versions/0.13.0-lightweight-pipeline.md
 ```
 
+## 安装
+
+本包是 CodeAgent Skill 项目压缩包，解压后放入对应目录即可被识别，无需额外安装依赖。
+
+### 1. 解压
+
+```text
+tar -xzf code-solver-v0.13.0.tar.gz
+# 或
+unzip code-solver-v0.13.0.zip
+```
+
+解压后得到 `code-solver-v0.13.0/` 目录，包含以下内容：
+
+```text
+code-solver-v0.13.0/
+├── README.md
+├── command/
+│   └── code-solver.md              # 命令入口
+├── skills/
+│   └── code-solver/
+│       ├── SKILL.md                # Skill 主逻辑
+│       ├── references/
+│       │   └── review-rules.md     # 默认审查规范
+│       └── scripts/
+│           └── archive.py          # 归档脚本
+└── spec/versions/                  # 版本决策记录（运行时不读取）
+```
+
+### 2. 放入对应目录
+
+根据你使用的客户端选择目录：
+
+**OpenCode（.opencode）：**
+
+```text
+cp -r code-solver-v0.13.0/command  <项目根目录>/.opencode/
+cp -r code-solver-v0.13.0/skills   <项目根目录>/.opencode/
+```
+
+放入后结构：
+
+```text
+<项目根目录>/.opencode/
+├── command/code-solver.md
+└── skills/code-solver/
+    ├── SKILL.md
+    ├── references/review-rules.md
+    └── scripts/archive.py
+```
+
+**CodeAgentCLI 3.0（.cac）：**
+
+```text
+cp -r code-solver-v0.13.0/command  <项目根目录>/.cac/
+cp -r code-solver-v0.13.0/skills   <项目根目录>/.cac/
+```
+
+放入后结构：
+
+```text
+<项目根目录>/.cac/
+├── command/code-solver.md
+└── skills/code-solver/
+    ├── SKILL.md
+    ├── references/review-rules.md
+    └── scripts/archive.py
+```
+
+### 3. 环境要求
+
+- OpenCode 或 CodeAgentCLI 3.0（用于识别 Skill 并触发 `/code-solver`）
+- Python 3（archive.py 仅依赖标准库，无需 pip install）
+
+### 4. 开始使用
+
+在项目根目录下启动客户端，输入命令即可：
+
+```text
+/code-solver solve leetcode 206 java
+```
+
+题解和代码自动归档到项目根目录下的 `code-solver-workspace/`，无需手动创建。
+
 ## 版本
 
 当前版本：**0.13.0**。本次决策与验收标准见
