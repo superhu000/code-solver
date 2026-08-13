@@ -156,7 +156,10 @@ cp -r skills   <项目根目录>/.opencode/
 ├── command/code-solver.md
 └── skills/code-solver/
     ├── SKILL.md
-    ├── references/review-rules.md
+    ├── references/
+    │   ├── fast-template.md
+    │   ├── detail-template.md
+    │   └── review-rules.md
     └── scripts/archive.py
 ```
 
@@ -171,8 +174,11 @@ cp -r skills   <项目根目录>/.opencode/
 code-solver/
 ├── command/code-solver.md              # 命令入口，转发给 SKILL.md
 ├── skills/code-solver/
-│   ├── SKILL.md                        # 主逻辑：路由、流程、模板、性能预算
-│   ├── references/review-rules.md      # 默认审查规范
+│   ├── SKILL.md                        # 主逻辑：路由、流程、模板引用、性能预算
+│   ├── references/
+│   │   ├── fast-template.md            # fast 题解模板（可自定义）
+│   │   ├── detail-template.md          # detail 题解模板（可自定义）
+│   │   └── review-rules.md             # 默认审查规范
 │   └── scripts/archive.py              # 归档脚本（resolve / list）
 └── spec/versions/                      # 版本决策记录（运行时不读取）
 ```
