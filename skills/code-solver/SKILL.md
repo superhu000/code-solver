@@ -53,7 +53,16 @@ python <skill_dir>/scripts/archive.py resolve \
 
 完成后立即停止，不执行编译、运行、测试、修复等多余环节。
 
-## 题解模板
+### 输出约束
+
+题目解析完成后输出：
+题目解析完成：<平台名> <题目序号> - <题目名称> - <算法类型> - <语言> - <运行模式>，开始生成文件。
+
+文件生成完成后输出一行：
+- fast：已完成（fast模式），文件保存至{note路径}
+- detail：已完成（detail模式），文件保存至{note路径}
+
+### 题解模板
 
 题解模板独立存放于 `references/`，用户可按需修改风格，不影响 Skill 流程：
 
@@ -64,7 +73,56 @@ python <skill_dir>/scripts/archive.py resolve \
 
 读取模板后按占位符填充内容，一次生成完整 Markdown 写入 `note`。不得创建“测试说明.md”“测试报告.md”等额外文档。
 
-## 代码约束
+## Review 规范
+
+### 1. 解析归档
+
+从用户输入确定平台、题号、题名、语言和笼统题型。调用一次：
+若用户提供题目基本信息不全不法识别来源，提示一下：信息不全，无法识别题目来源，保存到其他类型
+```text
+python <skill_dir>/scripts/archive.py resolve \
+  --project-root <project> --platform <platform> --category <category> \
+  --language <language> --problem-id <id> --title <title> --mode review
+```
+
+只使用返回的 `note` 路径。不要再次 resolve、list 或扫描归档。
+
+### 2. 读取模板与规范
+
+并行读取以下两个文件：
+
+| 文件 | 用途 |
+|---|---|
+| `<skill_dir>/references/review-template.md` | 代码审查输出模板（占位符结构） |
+| `<skill_dir>/references/review-rules.md` | 代码审查规范（优先级、输出规则、语言基线） |
+
+不要修改用户规范。按选中规范一次完成审查；无证据的问题不输出。
+
+### 3. 一次生成代码审查
+
+按 review-template.md 的占位符结构，结合 review-rules.md 的优先级和规则，一次生成完整 Markdown 写入 `note`。各审查维度的具体要求见模板文件，不在此重复。
+
+### 4. 保存
+
+将生成的代码审查直接写入 `note`（`代码审查.md`）；不运行被审代码，不编译，不创建额外文件。
+
+### 输出约束
+
+- 用户思路或代码解析完成后输出：
+  题目解析完成：<平台名> <题目序号> - <题目名称> - <算法类型> - <语言> - <思路/代码>，开始生成代码审查。
+- 文件生成完成后输出一行：
+  review：已完成（review模式），代码审查保存至{note路径}
+
+### 代码审查模板
+
+代码审查模板和代码规范独立存放于 `references/`，用户可按需修改，不影响 Skill 流程：
+
+| 文件 | 用途 | 读取时机 |
+|---|---|---|
+| `<skill_dir>/references/review-template.md` | 审查输出模板 | review 第一轮 |
+| `<skill_dir>/references/review-rules.md` | 审查代码规范 | review 第一轮 |
+
+## 代码基本约束
 
 | 语言 | 解题文件 | detail 测试文件 | 用户运行入口 |
 |---|---|---|---|
@@ -80,19 +138,6 @@ python <skill_dir>/scripts/archive.py resolve \
 - 测试代码优先使用题面官方样例，再补 1～3 个必要边界；输出清晰的通过/失败信息。
 - 测试代码调用解题代码公开接口，不复制另一份算法实现。
 - 保持文件紧凑；不要加入教程式长注释、重复实现或无关工具类。
-
-## Review 规范
-
-review 只读取以下最高优先级的一个规范源，找到后停止：
-
-1. 用户本次上传或粘贴的规范。
-2. `--rules` 明确指定的文件。
-3. `<project>/.code-solver/review-rules.md`。
-4. `<skill_dir>/references/review-rules.md`。
-
-不要合并多个规范，也不要修改用户规范。按选中规范一次完成审查；无证据的问题不输出。仅当用户明确要求时生成修订代码。
-
-Review 输出结构：结论、问题（位置/证据/影响/最小修改）、优先级、知识盲点。调用一次 `archive.py resolve --mode review`，将结果直接写入 `代码审查.md`；不运行被审代码。
 
 
 ## 归档约束
