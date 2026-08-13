@@ -5,6 +5,8 @@ description: 快速解答算法题、审查代码并制定刷题训练计划。s
 
 # Code Solver
 
+当前发布契约：1.0.0；版本与功能定义见 spec/CURRENT.md。运行时不读取 Spec。
+
 ## 核心契约
 
 - 默认使用 `fast + Java 17 + 中文`。
